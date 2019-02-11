@@ -1,0 +1,27 @@
+卷 资料盘 的文件夹 PATH 列表
+卷序列号为 0005-6146
+F:\MYPROJECT\IDEA\FUCK_HIS\SRC
+├─main
+│  ├─java
+│  │  └─com
+│  │      └─gzucm
+│  │          └─fuck_his
+│  │              ├─constant 常量类(Redis设置)
+│  │              ├─controller 控制类
+│  │              ├─DTO 数据传输对象
+│  │              ├─entity 数据库表的实体类
+│  │              ├─repository JPA
+│  │              ├─service 服务类及其实现
+│  │              │  └─impl
+│  │              ├─utils 工具类
+│  │              └─websocket 
+│  │                  ├─config websocket的配置类
+│  │                  ├─controller websocket的控制类
+│  │                  └─model websocket的数据传输类
+│  └─resources
+│      ├─static 各静态资源
+│      │  ├─css
+│      │  ├─img
+│      │  └─js
+│      └─templates 各html页面文件
+└─test
