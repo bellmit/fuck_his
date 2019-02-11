@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DoctorCall</title>
+    <script src="js/sockjs.js"></script>
+    <script src="js/stomp.js"></script>
+    <script src="js/jquery.js"></script>
+</head>
+<body onload="connect()">
+<noscript><h2 style="color: #ff0000">貌似你的浏览器不支持websocket</h2></noscript>
+<div>
+        <p id="response"></p>
+</div>
+
+<script type="text/javascript">
+    // 这是喊号端
+    var stompClient = null;
+
+ 
+    function connect() {
+        var url= decodeURI(window.location.search);
+        var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
+        // var url = location.search; 
+        console.log(paraString);
+        var paraObj = {} 
+        for (i=0; j=paraString[i]; i++){ 
+            console.log(j);
+            paraObj[j.substring(0,j.indexOf("="))] = j.substring(j.indexOf("=")+1,j.length); 
+        }
+        console.log(paraObj);
+        console.log(paraObj.doctorId);
+        var doctorId = paraObj.doctorId;
+        localStorage.setItem("doctorId",doctorId);
+
+        var socket = new SockJS('doctorPoint'); //链接SockJS 的endpoint 名称为"/endpointWisely"
+        stompClient = Stomp.over(socket);//使用stomp子协议的WebSocket 客户端
+        stompClient.connect({}, function(frame) {//链接Web Socket的服务端。
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/doctor/' + doctorId + '/patientMessage',function (response) {// 在这里改逻辑
+                console.log(response.body);
+                showResponse(response.body,doctorId);
+            });
+        });
+    }
+
+
+
+    function showResponse(message,doctorId) {
+        // var response = $("#response");
+        // response.html($("#response").html() + message + "<br>");
+        var patient = JSON.parse(message);
+        var msg = new SpeechSynthesisUtterance("请"+patient.name+"到"+doctorId+"号医生处就诊   ,请"+patient.name+"到"+doctorId+"号医生处就诊   ,请"+patient.name+"到"+doctorId+"号医生处就诊   ,请"+patient.name+"到"+doctorId+"号医生处就诊   ,");
+        console.log(message);
+        window.speechSynthesis.speak(msg);
+    }
+</script>
+</body>
+</html>

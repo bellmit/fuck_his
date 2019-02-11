@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://weui.io/weui.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <style>
+    .weui-cell label{
+        font-weight:600;
+        padding-top: 6px;
+    }
+    .addresshd{
+        font-weight:600;
+        color: #333;
+        font-size: 17px;
+    }
+    .addressbd{
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .footer{
+        height: 30px;
+        margin-top: 10px;
+        background-color: #f8f8f8;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-default bd" role="navigation" align="center">
+        <h3 class="page_title">预约</h3>
+    </nav>
+    <form  role="form" onsubmit="return false";>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cells__title">基本信息</div>
+            <div class="weui-cell">
+                <div class="weui-cell_hd"><label for="name" class="weui-label">姓名</label></div>
+                <!-- <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui-input" type="text" pattern="" id="name" placeholder="请输入姓名"/>
+                </div> -->
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui-input" type="text" id="name" placeholder="请输入姓名"/>
+                </div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell_hd"><label for="healthCardId" class="weui-label">医保卡号</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui-input" type="text" id="healthCardId" placeholder="请输入医保卡号"/>
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cells__title">预约信息</div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="apartment" class="weui-label">科室</label>
+                </div>
+                <div class="weui-cell__bd weui_cell_primary">
+                    <select class="weui-select" id="apartment" name="apartment">
+                        <option value="急诊">急诊</option>
+                        <option value="内科">内科</option>
+                        <option value="外科">外科</option>
+                        <option value="妇科">妇科</option>
+                        <option value="骨科">骨科</option>
+                        <option value="肿瘤科">肿瘤科</option>
+                        <option value="皮肤科">皮肤科</option>
+                        <option value="针灸科">针灸科</option>
+                        <option value="儿科">儿科</option>
+                        <option value="护理科">护理科</option>
+                        <option value="麻醉科">麻醉科</option>
+                        <option value="口腔科">口腔科</option>
+                        <option value="耳鼻喉科">耳鼻喉科</option>
+                        <option value="眼科">眼科</option>
+                        <option value="病理科">病理科</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label for="part" class="weui-label">分科</label>
+                </div>
+                <div class="weui-cell__bd weui_cell_primary">
+                    <select class="weui-select" id="part" name="part">
+                        <option value="急诊科（含普通内科病区）" id=0>急诊科（含普通内科病区）</option>
+                    </select>
+                </div>
+            </div>
+<!--             <div class="weui-cell">
+                <div class="addresshd">病情描述</div>
+            </div>
+            <div class="weui-cell">
+                <div class="weui-cell__bd addressbd" align="center">
+                    <textarea class="weui-textarea"  placeholder="病情描述....." rows="3" ></textarea>
+                    <div class="weui-textarea-counter"><span>0</span>"/200"</div>
+                </div>
+            </div> -->
+        </div>
+        <div class="weui-flex weui-cell">
+            <div class="weui-flex__item weui-btn-area">
+                <input class="weui-btn weui-btn_primary" type="submit" value="提交" id="submit"/>
+            </div>
+        </div>
+    </form>
+</body>
+<!-- <script type="text/javascript" src="./js/book.js"></script> -->
+<script>
+    var datas={};
+    $(document).ready(function(){
+        var name = localStorage.getItem("patientName");
+        console.log(name);
+        $("#name").val(name);
+        $('#name').attr("readonly", "readonly")
+        $.ajax({
+            type: "GET",
+            url: "./list/apartment",
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                datas=res.data;
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });      
+    });
+    $('#apartment').on('change',function () {
+        var text =$('#apartment').val();
+        // console.log(datas);
+        if(text=="急诊"){
+            console.log(text);
+            $("#part").empty();
+            $('#part').append('<option value="急诊科（含普通内科病区）" id=0>急诊科（含普通内科病区）</option>');
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="内科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>1&&datas[i].apartmentId<2){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            var id=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="外科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>2&&datas[i].apartmentId<3){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="妇科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>3&&datas[i].apartmentId<4){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="骨科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>4&&datas[i].apartmentId<5){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="肿瘤科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>5&&datas[i].apartmentId<6){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="皮肤科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>6&&datas[i].apartmentId<7){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="针灸科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>7&&datas[i].apartmentId<8){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="推拿科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>8&&datas[i].apartmentId<9){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="儿科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>9&&datas[i].apartmentId<10){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="护理科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>10&&datas[i].apartmentId<11){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="麻醉科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>11&&datas[i].apartmentId<12){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="口腔科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>12&&datas[i].apartmentId<13){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="耳鼻喉科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>13&&datas[i].apartmentId<14){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+        if(text=="眼科"){
+            console.log(text);
+            $("#part").empty();
+            for(var i=0;i<datas.length;i++){
+                if(datas[i].apartmentId>14&&datas[i].apartmentId<15){
+                    // console.log(datas[i].apartmentName);
+                    $('#part').append('<option value="'+ datas[i].apartmentName +'" id="'+ datas[i].apartmentId +'">' + datas[i].apartmentName + '</option>');
+                    // $('#part').options[0].selected = true;
+                }
+            }
+            var value=$('#part option:first').val();
+            console.log(value);
+            $("#part").val(value);
+        }
+    });
+    $('#submit').on('click',function(){
+        var id=$("#part").find("option:selected").attr("id");
+        var part=$("#part").val();
+        console.log(part);
+        localStorage.setItem("part",part);
+        var name=$("#name").val();
+        console.log(name);
+        localStorage.setItem("name",name);
+        var healthCardId=$("#healthCardId").val();
+        console.log(healthCardId);
+        localStorage.setItem("healthCardId",healthCardId);
+        var apartment=$("#apartment").val();
+        if(apartment=="急诊"){
+            localStorage.setItem("apartment",apartment);
+        }else if(apartment=="特诊"){
+            localStorage.setItem("apartment",apartment);
+        }else{
+            apartment="门诊";
+            localStorage.setItem("apartment",apartment);
+        }
+        window.location.href="doctorList?part="+part+"&apartmentId="+id;
+    })
+</script>
+</html>                                         

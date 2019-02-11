@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link href="https://weui.io/weui.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <style>
+    .result{
+        margin-bottom: 10px;
+    }
+    body{
+        margin: 50px;
+    }
+    h1{
+        padding-bottom:  20px;
+    }
+    .test_box {
+        /*width: 400px;*/
+        min-height: 20px;
+        /*设置最小高度*/
+        max-height: 1000px;
+        /*设置最大高度超过300px时出现滚动条*/
+        _height: 120px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 13px;
+        outline: 0;
+        border: 1px solid #a0b3d6;
+        font-size: 16px;
+        line-height: 24px;
+        word-wrap: break-word;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border-color: rgba(82, 168, 236, 0.8);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    }
+    .weui-cell label{
+        font-weight:600;
+        padding-top: 6px;
+    }
+    .addresshd{
+        font-weight:600;
+        color: #333;
+        font-size: 17px;
+    }
+    .addressbd{
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .footer{
+        height: 30px;
+        margin-top: 10px;
+        background-color: #f8f8f8;
+    }
+    .list{
+        padding-left: 25px;
+    }
+    .introduction{
+        display: inline-block;
+        width: 40%;
+        padding:  10px;
+        padding-left: 30px;
+        font-size: 18px;
+    }
+    .introduction .name: {
+        font-weight: 700;
+    }
+    .introduction .title: {
+        padding-top: 10px;
+        font-size: 1px;
+        /*        font-weight: 700;*/
+    }
+    .img{
+        width: 60px;
+        height:60px；
+    }
+    .summary textarea{ 
+        resize:none ;
+        padding-top: 3px;
+        font-weight: 400;
+    }
+    .wait{
+        font-weight:600 !important;
+    }
+</style>
+</head>
+<body>
+    <div class="container" >
+        <h1  align="center">就诊队列</h1>
+        <div class="weui-cells">
+            <div class="weui-cell list">
+                <img src="../static/img/医生1.jpg" alt="医生" class="img-circle img">
+                <div class="introduction">
+                    <div class="name">张医生</div>
+                    <div class="title">教授</div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__bd test_box" contenteditable="false">
+                        <span class="title">医生简介</span>
+                        大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                        大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                        大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                        大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                    </div>
+                </div>
+            </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell_hd"><label for="name" class="weui-label">就诊中</label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui-input" type="password" pattern="" placeholder="张三" readonly/>
+                </div>
+            </div>
+
+            <div class="weui-cell">
+                <div class="weui-cell_hd"><label for="name" class="weui-label wait">等待中</label></div>
+                <div class="weui-cell__bd test_box" contenteditable="false">
+                    大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                    大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                    大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                    大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                    大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                    大家好~我叫XXX（大名），平时大家可以叫我小依（小名），今年刚好14岁了。说道自己的性格，其实我自己也不是很清楚，有的时候很细心，有的时候很粗心.有时候的很暴躁，也有时候的很耐心.（这话打上去很有个性的，挺脱俗的）
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>                                         

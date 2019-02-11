@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://weui.io/weui.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="https://vuejs.org/js/vue.min.js"></script>
+    
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+    .weui-cell label{
+        font-weight:600;
+        padding-top: 6px;
+    }
+    .addresshd{
+        font-weight:600;
+        color: #333;
+        font-size: 17px;
+    }
+    .addressbd{
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .footer{
+        height: 30px;
+        margin-top: 10px;
+        background-color: #f8f8f8;
+    }
+    .list{
+        padding-left: 25px;
+    }
+    .introduction{
+        display: inline-block;
+        padding:  15px;
+        padding-left: 20px;
+        font-size: 20px;
+    }
+    .introduction .state{
+        padding-top: 10px;
+        font-size: 15px;
+        font-weight: 700;
+    }
+    .img{
+        width: 60px;
+        height:60px;
+    }
+    .right{
+        height: 40%;
+        position:absolute;
+        right: 3%;
+        vertical-align: bottom;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-default bd" role="navigation" align="center">
+        <h3 class="page_title">预约</h3>
+    </nav>
+    <div class="weui-cells" id="doctor-list">
+        
+        <div class="weui-cell list" v-for="(item,index) in doctor_items" v-if="item[0]==apartmentId">
+            <img src="img/医生1.jpg" alt="医生" class="img-circle img">
+            <div class="introduction">
+                <div class="name">{{item[2]}}<span>&nbsp;{{item[5]}}</span></div>
+                <!-- <div class="state">简介: {{item[7]}}</div> -->
+                <div class="state">剩余号源：<span>30</span></div>
+            </div>
+            <img src="img/right.png" class="right" v-bind:id="item[1]" onclick="deal(this)"/>
+        </div>
+<!-- 
+        <div class="weui-cell list">
+            <img src="img/医生1.jpg" alt="医生" class="img-circle img">
+            <div class="introduction">
+                <div class="name">张医生<span>&nbsp;教授</span></div>
+                <div class="state">剩余号源：<span>30</span></div>
+            </div>
+            <img src="img/right.png" class="right"/>
+        </div>
+
+        <div class="weui-cell list">
+            <img src="img/医生1.jpg" alt="医生" class="img-circle img">
+            <div class="introduction">
+                <div class="name">张医生<span>&nbsp;教授</span></div>
+                <div class="state">剩余号源：<span>30</span></div>
+            </div>
+            <img src="img/right.png" class="right"/>
+        </div>
+        <div class="weui-cell list">
+            <img src="img/医生2.jpg" alt="医生" class="img-circle img">
+            <div class="introduction">
+                <div class="name">李医生<span>&nbsp;副教授</span></div>
+                <div class="state">剩余号源：<span>30</span></div>
+            </div>
+            <img src="img/right.png" class="right"/>
+        </div>
+        <div class="weui-cell list">
+            <img src="img/医生3.jpg" alt="医生" class="img-circle img">
+            <div class="introduction">
+                <div class="name">王医生<span>&nbsp;主任医师</span></div>
+                <div class="state">剩余号源：<span>30</span></div>
+            </div>
+            <img src="img/right.png" class="right"/>
+        </div>
+        <div class="weui-cell list">
+            <img src="img/医生4.jpg" alt="医生" class="img-circle img">
+            <div class="introduction">
+                <div class="name">梁医生<span>&nbsp;医师</span></div>
+                <div class="state">剩余号源：<span>30</span></div>
+            </div>
+            <img src="img/right.png" class="right"/>
+        </div> -->
+    </div>
+    
+</body>
+<script type="text/javascript" src="js/vuePublic.js"></script>
+<script>
+    $(document).ready(function(){
+        $.ajax({
+           type: "GET",
+           url: "./list/doctor",
+           dataType: "json",
+           success: function (res) {
+              console.log(res);
+              doctor.doctor_items=res.data;
+          },
+          error: function (res) {
+              console.log(res);
+          }
+      });      
+    });
+    $(function(){
+        var url= decodeURI(window.location.search);
+        var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
+        // var url = location.search; 
+        console.log(paraString);
+        var paraObj = {} 
+        for (i=0; j=paraString[i]; i++){ 
+            console.log(j);
+            paraObj[j.substring(0,j.indexOf("="))] = j.substring(j.indexOf("=")+1,j.length); 
+        }
+        console.log(paraObj);
+        console.log(paraObj.apartmentId);
+        doctor.apartmentId = paraObj.apartmentId;
+        $(".page_title").text(paraObj.part);
+    });
+    function deal(data){
+        console.log(data);
+        console.log(data.id);
+        window.location.href="doctorDetail?id="+data.id;
+    }
+</script>
+</html>

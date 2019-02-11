@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://weui.io/weui.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <style>
+    .weui-cell label{
+        font-weight:600;
+        padding-top: 6px;
+        /*        color: red !important;*/
+    }
+    .addresshd{
+        font-weight:600;
+        color: #333;
+        font-size: 17px;
+    }
+    .addressbd{
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .footer{
+        height: 30px;
+        margin-top: 10px;
+        background-color: #f8f8f8;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-default bd" role="navigation" align="center">
+        <h3 class="page_title">注册</h3>
+    </nav>
+    <form class="weui-cells weui-cells_form" role="form" onsubmit="return false";>
+        <div class="weui-cells__title">账户信息</div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="phonenumber" class="weui-label">手机</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" pattern="^1[3578]\d{9}$" id="phonenumber" name="phonenumber" placeholder="请输入手机号码" oninvalid="setCustomValidity('请输入11位正确格式的手机号码');" oninput="setCustomValidity('');"/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="password" class="weui-label">密码</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="password" id="password" name="password" placeholder="请输入至少6位数密码"/>
+                <!-- <input class="weui-input" type="password" pattern="^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$" id="password" name="password" placeholder="请输入至少6位数密码" oninvalid="setCustomValidity('请输入最少6位密码数，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符');" oninput="setCustomValidity('');"/> -->
+            </div>
+        </div>
+        <div class="weui-cells__title">基本信息</div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="name" class="weui-label">姓名</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" pattern="^([\u4e00-\u9fa5]{1,20}|[a-zA-Z\.\s]{1,20})$" id="name" name="name" placeholder="请输入姓名" oninvalid="setCustomValidity('请输入20个有效的汉字或字符');" oninput="setCustomValidity('');"/>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+            <div class="weui-cell__hd">
+                <label for="sex" class="weui-label">性别</label>
+            </div>
+            <div class="weui-cell__bd weui_cell_primary">
+                <select class="weui-select" id="sex" name="sex">
+                    <option value=true>男</option>
+                    <option value=flase>女</option>
+                </select>
+            </div>
+        </div> 
+<!--         <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="age" class="weui-label">年龄</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" pattern="^(?:[1-9][0-9]?|1[0-4][0-9]|150)$" id="age" name="age" placeholder="请输入年龄" oninvalid="setCustomValidity('请输入值为0-150之间的岁数');" oninput="setCustomValidity('');"/>
+            </div>
+        </div> -->
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="peopleCard" class="weui-label">身份证号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" pattern="^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$" id="peopleCard" name="peopleCard" placeholder="请输入身份证号码" oninvalid="setCustomValidity('请输入15位或18位正确格式的身份证号码');" oninput="setCustomValidity('');"/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="healthCardId" class="weui-label">医保卡号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" pattern="^(\d{16}|\d{19})$" id="healthCardId" name="healthCardId" placeholder="请输入医保卡号" oninvalid="setCustomValidity('请输入16位或19位正确格式的医保卡号');" oninput="setCustomValidity('');"/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="birthday" class="weui-label">生日</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="date" id="birthday" name="birthday"/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="height" class="weui-label">身高</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" pattern="^([0-9]|[1-2]\d{2})$" id="height" name="height" placeholder="请输入身高" oninvalid="setCustomValidity('请输入值为0-299之间的高度');" oninput="setCustomValidity('');"/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="weight" class="weui-label">体重</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" pattern="^([0-9]|[1-9]\d{1,2})$" id="weight" name="weight" placeholder="请输入体重" oninvalid="setCustomValidity('请输入值为0-999之间的重量');" oninput="setCustomValidity('');"/>
+            </div>
+        </div>
+<!--                     <div class="weui-cell">
+                        <input type="submit" name="" id="btn">
+                    </div> -->
+                    <div class="weui-cell">
+                        <div class="weui-cell_hd"><label for="address" class="weui-label">联系地址</label></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea class="weui-textarea"  placeholder="请输入联系地址" rows="3" id="address"></textarea>
+                            <div class="weui-textarea-counter">"<span>0</span>/200"</div>
+                        </div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell_hd"><label for="allergy" class="weui-label">过敏药物</label></div>
+                    </div>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea class="weui-textarea"  placeholder="请输入过敏药物" rows="3" id="allergy"></textarea>
+                            <div class="weui-textarea-counter">"<span>0</span>/200"</div>
+                        </div>
+                    </div>
+<!--         <div>
+            <label for="weuiAgree" class="weui-agree">
+                <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox"/>
+                <span class="weui-agree__text">
+                    阅读并同意<a href="javascript:void(0);">《相关条款》</a>
+                </span>
+            </label>s
+        </div> -->
+        <div class="weui-flex weui-cell">
+            <div class="weui-flex__item weui-btn-area">
+                <input class="weui-btn weui-btn_primary" type="submit" value="提交" id="submit"/>
+                <!-- <a class="weui-btn weui-btn_primary" href="javascript:void(0)" id="submit">提交</a> -->
+            </div>
+        </div>
+    </form>
+    <div class="weui-cell footer"></div>
+</body>
+<script type="text/javascript">    
+    // $(":submit").click(function(){
+        $("#submit").click(function(){
+            var name=$("#name").val();
+            var sex=$("#sex").val();
+            var password=$("#password").val();
+            var phonenumber=$("#phonenumber").val();
+            var peopleCard=$("#peopleCard").val();
+            var healthCardId=$("#healthCardId").val();
+            var birthday=$("#birthday").val();
+            var height=$("#height").val();
+            var weight=$("#weight").val();
+            var address=$("#address").val();
+            var allergy=$("#allergy").val();
+        // var startTime = new Date('1970-01-01');
+        // startTime = Math.round(startTime.getTime()/1000);
+        var endTime = new Date(birthday);
+        endTime=Math.round(endTime.getTime()/1000);
+        // console.log(startTime);
+        // console.log(endTime);
+        // let start =new Data();
+        // start.setFullYear(1970,1,1);
+        // let end =new Data(birthday);
+        // var endTime = end.getTime();
+        // var startTime = start.getTime();
+        // var timeStamp=endTime-startTime;
+        console.log(name);
+        console.log(sex);
+        console.log(password);
+        console.log(phonenumber);
+        console.log(peopleCard);
+        console.log(healthCardId);
+        console.log(birthday);
+        console.log(height);
+        console.log(weight);
+        console.log(address);
+        console.log(allergy);
+        // console.log(startTime);
+        console.log(endTime);
+        // console.log(timeStamp);
+        var data = {
+            name:name,
+            sex:sex,
+            password:password,
+            phonenumber:phonenumber,
+            peopleCard:peopleCard,
+            healthCardId:healthCardId,
+            birthday:endTime,
+            height:height,
+            weight:weight,
+            address:address,
+            allergy:allergy
+        };
+        console.log(data);
+    // }
+    $.ajax({
+     type: "POST",
+     url: "./add/patient",
+//         http://127.0.0.1:8080/his/register
+//         url: "http://118.24.42.177/his/add/patient",
+           // contentType: "application/json; charset=utf-8",
+           // data: JSON.stringify(data),
+           data: data,
+           dataType: "json",
+           success: function (res) {
+              console.log(res);
+          },
+          error: function (res) {
+              console.log(res);
+          }
+      });
+});
+</script>
+</html>                                         

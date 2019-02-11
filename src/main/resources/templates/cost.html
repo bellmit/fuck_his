@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://weui.io/weui.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <style>
+    .weui-cell label{
+        font-weight:600;
+        padding-top: 6px;
+    }
+    .body{
+        margin-top:50px;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-default bd" role="navigation" align="center">
+        <h3 class="page_title">确认挂号信息</h3>
+    </nav>
+    <form class="weui-cells weui-cells_form" role="form" onsubmit="return false";>
+        <div class="weui-cells__title">基本信息</div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="name" class="weui-label">姓名</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" id="name" />
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="apartment" class="weui-label">科室</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" id="apartment" />
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="date" class="weui-label">就诊日期</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" id="date" readonly/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="time" class="weui-label">就诊时间</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" id="time" readonly/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="healthCardId" class="weui-label">医保卡号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" id="healthCardId" readonly/>
+            </div>
+        </div>       
+
+        <div class="weui-cells__title">支付信息</div>
+
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+            <div class="weui-cell__hd">
+                <label for="part" class="weui-label">缴费方式</label>
+            </div>
+            <div class="weui-cell__bd weui_cell_primary">
+                <select class="weui-select" id="part" name="sex">
+                    <option value="">自费</option>
+                    <option value="">公费</option>
+                    <option value="">医保</option>
+                </select>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="level" class="weui-label">挂号级别</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" id="level" readonly/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="class" class="weui-label">费别【号类】</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" id="class" readonly/>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell_bd"><label for="record" class="weui-label">购买病历</label></div>
+            <div class="weui_cell_ft weui_cell_primary">
+                <input class="weui-switch" type="checkbox" id="record"/>
+            </div>
+        </div>
+        <div class="weui-cell weui-cell_select weui-cell_select-after">
+            <div class="weui-cell__hd">
+                <label for="pay" class="weui-label">支付方式</label>
+            </div>
+            <div class="weui-cell__bd weui_cell_primary">
+                <select class="weui-select" id="pay" name="pay">
+                    <option value="">现金</option>
+                    <option value="">银行卡</option>
+                    <option value="">医保支付（线下）</option>
+                    <option value="">微信</option>
+                    <option value="">支付宝</option>
+                </select>
+            </div>
+        </div> 
+        <div class="weui-flex weui-cell">
+            <div class="weui-flex__item weui-btn-area">
+                <input class="weui-btn weui-btn_primary" type="submit" value="提交" id="submit"/>
+                <!-- <a class="weui-btn weui-btn_primary" href="javascript:void(0)" id="submit">提交</a> -->
+            </div>
+        </div>
+    </form>
+</body>
+<script>
+    $(document).ready(function() {
+        var name = localStorage.getItem("name");
+        console.log(localStorage.getItem("id"));
+        console.log(name);
+        $("#name").val(name);
+        $('#name').attr("readonly", "readonly")
+        localStorage.removeItem("name");
+        var part = localStorage.getItem("part");
+        console.log(part);
+        $("#apartment").val(part);
+        $('#apartment').attr("readonly", "readonly")
+        localStorage.removeItem("part");
+        var date = getCurrentDate(1);
+        $("#date").val(date);
+        var time = localStorage.getItem("time");
+        console.log(time);
+        $("#time").val(time);
+        localStorage.removeItem("time");
+        var healthCardId = localStorage.getItem("healthCardId");
+        console.log(healthCardId);
+        $("#healthCardId").val(healthCardId);
+        localStorage.removeItem("healthCardId");
+        var title = localStorage.getItem("title");
+        console.log(title);
+        $("#level").val(title);
+        localStorage.removeItem("title");
+        var apartment = localStorage.getItem("apartment");
+        console.log(apartment);
+        $("#class").val(apartment);
+        localStorage.removeItem("apartment");
+
+        $("#submit").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "./book/add",
+                //         http://127.0.0.1:8080/his/register
+                //         url: "http://118.24.42.177/his/add/patient",
+                // contentType: "application/json; charset=utf-8",
+                // data: JSON.stringify(data),
+                data: {
+                    healthCard: healthCardId,
+                    patientId: localStorage.getItem("patientId"),
+                    doctorId: localStorage.getItem("doctorId")
+                },
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    if (res.resultMsg == "成功") {
+                        window.location.href = "testDoctor?doctorId=" + localStorage.getItem("doctorId");
+                    }
+                },
+                error: function (res) {
+                    console.log(res);
+                }
+            });
+
+        });
+
+         function getCurrentDate (format) {
+            var now = new Date();
+            var year = now.getFullYear(); //得到年份
+            var month = now.getMonth();//得到月份
+            var date = now.getDate();//得到日期
+            var day = now.getDay();//得到周几
+            var hour = now.getHours();//得到小时
+            var minu = now.getMinutes();//得到分钟
+            var sec = now.getSeconds();//得到秒
+            month = month + 1;
+            if (month < 10) month = "0" + month;
+            if (date < 10) date = "0" + date;
+            if (hour < 10) hour = "0" + hour;
+            if (minu < 10) minu = "0" + minu;
+            if (sec < 10) sec = "0" + sec;
+            var time = "";
+            //精确到天
+            if (format == 1) {
+                time = year + "-" + month + "-" + date;
+            }
+            //精确到分
+            else if (format == 2) {
+                time = year + "-" + month + "-" + date + " " + hour + ":" + minu + ":" + sec;
+            }
+            return time;
+        }
+    })
+
+</script>
+</html>                                         

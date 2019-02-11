@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://weui.io/weui.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+    .weui-cell label{
+        font-weight:600;
+        padding-top: 6px;
+    }
+    .addresshd{
+        font-weight:600;
+        color: #333;
+        font-size: 17px;
+    }
+    .addressbd{
+        width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .footer{
+        height: 30px;
+        margin-top: 10px;
+        background-color: #f8f8f8;
+    }
+    .list{
+        padding-left: 25px;
+    }
+    .introduction{
+        display: inline-block;
+        padding:  10px;
+        padding-left: 30px;
+        font-size: 18px;
+    }
+    .introduction .name {
+        font-weight: 700;
+    }
+    .introduction .title{
+        padding-top: 10px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .img{
+        width: 60px;
+        height:60px;
+    }
+    .summary textarea{ 
+        resize:none ;
+        padding-top: 3px;
+        font-weight: 400;
+    }
+    .test_box {
+        /*width: 400px;*/
+        min-height: 20px;
+        /*设置最小高度*/
+        max-height: 1000px;
+        /*设置最大高度超过300px时出现滚动条*/
+        _height: 120px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 13px;
+        outline: 0;
+        /*border: 1px solid #a0b3d6;*/
+        font-size: 16px;
+        line-height: 24px;
+        word-wrap: break-word;
+        overflow-x: hidden;
+        overflow-y: auto;
+/*        border-color: rgba(82, 168, 236, 0.8);
+box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);*/
+}
+.right{
+    position:absolute;
+    right: 3%; 
+    height: 40%; 
+    bottom: 40%;
+    /*bottom: 19px;*/
+    vertical-align: center;
+}
+.right img{
+    height: 100%; 
+    vertical-align: center; 
+}
+.ask{
+    font-weight: 700;
+}
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-default bd" role="navigation" align="center">
+        <h3 class="page_title">预约</h3>
+    </nav>
+    <div class="weui-cells">
+        <div class="weui-cell list">
+            <img src="img/医生1.jpg" alt="医生" class="img-circle img">
+            <div class="introduction">
+                <div class="name"></div>
+                <div class="title"></div>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__bd test_box" contenteditable="true">
+                <span class="ask">医生简介:&nbsp;</span>
+                <div class="question"></div>
+            </div>
+        </div>
+    </div>
+    <div class="weui-cells">
+        <div class="weui-cell list">
+            <div class="time"></div>
+            <div class="right" align="center">
+                <span>可预约</span>
+                <img src="img/right.png"/>
+            </div>      
+        </div>
+<!--         <div class="weui-cell list">
+            <div class="time">9:00-10:00</div>
+            <div class="right" align="center">
+                <span>可预约</span>
+                <img src="img/right.png"/>
+            </div>      
+        </div>
+        <div class="weui-cell list">
+            <div class="time">9:00-10:00</div>
+            <div class="right" align="center">
+                <span>可预约</span>
+                <img src="img/right.png"/>
+            </div>      
+        </div>
+        <div class="weui-cell list">
+            <div class="time">9:00-10:00</div>
+            <div class="right" align="center">
+                <span>可预约</span>
+                <img src="img/right.png"/>
+            </div>      
+        </div> -->
+    </div>
+</body>
+
+<script>
+$(function(){
+    var url= decodeURI(window.location.search);
+    var paraString = url.substring(url.indexOf("?")+1,url.length).split("&"); 
+    // var url = location.search; 
+    console.log(paraString);
+    var paraObj = {} 
+    for (i=0; j=paraString[i]; i++){ 
+        console.log(j);
+        paraObj[j.substring(0,j.indexOf("="))] = j.substring(j.indexOf("=")+1,j.length); 
+    }
+    console.log(paraObj);
+    console.log(paraObj.id);
+    localStorage.setItem("doctorId",paraObj.id);
+    $(document).ready(function(){
+        $.ajax({
+            type: "GET",
+            url: "./find/doctor?id="+paraObj.id,
+            dataType: "json",
+            success: function (res) {
+                var data=res.data;
+                console.log(data);
+                $(".name").text(data.name);
+                console.log(data.name);
+                $(".title").text(data.level);
+                console.log(data.level);
+                $(".question").text(data.introduction);
+                console.log(data.introduction);
+                var time = data.workKind;
+                console.log(time);
+                if(time==1){
+                    $(".time").text("00:00-08:00");
+                }else if(time==2){
+                    $(".time").text("08:00-16:00");
+                }else{
+                    $(".time").text("16:00-24:00");
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });      
+    });
+    $('.right').on('click',function () {
+        var title=$(".title").text();
+        console.log(title);
+        localStorage.setItem("title",title);
+        var time=$(".time").text();
+        console.log(time);
+        localStorage.setItem("time",time);
+        window.location.href="cost";
+    })
+});
+</script>
+</html>

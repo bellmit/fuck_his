@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://weui.io/weui.css" rel="stylesheet">
+    <script src="https://www.imooc.com/static/lib/jquery/1.9.1/jquery.js"></script>
+    <style>
+    .content {
+        width: 300px;
+    }
+    .append{
+        background-color: blue;
+    }
+    .appendTo{
+        background-color: red;
+    }
+</style>
+</head>
+
+<body>
+    <h2>通过append与appendTo添加元素</h2>
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+            <label for="apartment" class="weui-label">科室</label>
+        </div>
+        <div class="weui-cell__bd weui_cell_primary">
+            <select class="weui-select" id="apartment" name="apartment">
+<!--                 <option value="1">心血管内科</option>
+                <option value="1">心血管内科</option>
+                <option value="1">心血管内科</option> -->
+            </select>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var name="内科";
+        $("#apartment").append('<option value="内科">内科</option>');
+    });
+</script>
+</html>

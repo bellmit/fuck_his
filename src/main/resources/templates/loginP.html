@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://weui.io/weui.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <style>
+    .weui-cell label{
+        font-weight:600;
+        padding-top: 6px;
+    }
+    .body{
+        margin-top:50px;
+    }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-default bd" role="navigation" align="center">
+        <h3 class="page_title">登录</h3>
+    </nav>
+    <form class="weui-cells weui-cells_form" role="form" onsubmit="return false";>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="phonenumber" class="weui-label">账号</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="text" id="phonenumber" pattern="^1[3578]\d{9}$" name="phonenumber" placeholder="请输入手机账号" oninvalid="setCustomValidity('请输入11位正确格式的手机号码');" oninput="setCustomValidity('');"/>
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell_hd"><label for="password" class="weui-label">密码</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui-input" type="password" id="password" name="password" placeholder="请输入至少6位数密码"/>
+            </div>
+        </div>
+        <div class="weui-flex weui-cell">
+            <div class="weui-flex__item weui-btn-area">
+                <input class="weui-btn weui-btn_primary" type="submit" value="提交" id="submit"/>
+            </div>
+        </div>
+    </form>
+</body>
+<script>
+    $("#submit").click(function(){
+        var phonenumber=$('#phonenumber').val();
+        var password=$('#password').val();
+        console.log(phonenumber)
+        console.log(password)
+        var data = {
+            password:password,
+            phonenumber:phonenumber
+        };
+        $.ajax({
+           type: "POST",
+           url: "./login/patient",
+//         http://127.0.0.1:8080/his/register
+//         url: "http://118.24.42.177/his/add/patient",
+           // contentType: "application/json; charset=utf-8",
+           // data: JSON.stringify(data),
+           data: data,
+           dataType: "json",
+           success: function (res) {
+              console.log(res);
+              if(res.resultMsg=="成功"){
+                localStorage.setItem("patientId",res.data.id);
+                window.location.href = "book";
+                 $.ajax({
+                     type: "POST",
+                     url: "./find/patient?id="+res.data.id,
+                     data: data,
+                     dataType: "json",
+                     success: function (res) {
+                        console.log(res);
+                        localStorage.setItem("patientName",res.data.name);
+                     },
+                     error: function (res) {
+                        console.log(res);
+                     }
+                  });
+              }
+           },
+           error: function (res) {
+              console.log(res);
+           }
+        });
+    });
+</script>
+</html>                                         
